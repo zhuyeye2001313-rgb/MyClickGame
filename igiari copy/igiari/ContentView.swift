@@ -7,7 +7,6 @@ struct ContentView: View {
     @State private var playCount = 0
     @State private var currentPartnerIndex = 0
     
-    // 图片3的选项数组
     private let partnerImages = ["who", "Mia Fey", "Maya Fey", "Miles Edgeworth", "Pearl Fey", "Keisuke Itonokogiri", "Mei Karuma"]
 
     private func playSwitchSound() {
@@ -18,7 +17,6 @@ struct ContentView: View {
             player?.play()
             playCount += 1
             
-            // 每10次点击切换图片3
             if playCount % 10 == 0 {
                 currentPartnerIndex = (currentPartnerIndex + 1) % partnerImages.count
             }

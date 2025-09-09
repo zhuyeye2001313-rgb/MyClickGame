@@ -5,6 +5,10 @@ struct ContentView: View {
     @State private var showFirst = true
     @State private var player: AVAudioPlayer?
     @State private var playCount = 0
+    @State private var currentPartnerIndex = 0
+    
+    // 图片3的选项数组
+    private let partnerImages = ["who", "Mia Fey", "Maya Fey", "Miles Edgeworth", "Pearl Fey", "Keisuke Itonokogiri", "Mei Karuma"]
 
     private func playSwitchSound() {
         guard let url = Bundle.main.url(forResource: "igiari", withExtension: "mp3") else { return }
@@ -13,6 +17,11 @@ struct ContentView: View {
             player?.prepareToPlay()
             player?.play()
             playCount += 1
+            
+            // 每10次点击切换图片3
+            if playCount % 10 == 0 {
+                currentPartnerIndex = (currentPartnerIndex + 1) % partnerImages.count
+            }
         } catch {
             print("Sound error:", error)
         }
@@ -40,6 +49,25 @@ struct ContentView: View {
                             showFirst = true
                         }
                 )
+            
+            Spacer()
+            
+            VStack {
+                Text("As Phoenix Wright continued to handle cases,")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                
+                Text("\(partnerImages[currentPartnerIndex]) became his partner.")
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                
+                Image(partnerImages[currentPartnerIndex])
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .padding()
+            }
+            .padding()
         }
     }
 }
